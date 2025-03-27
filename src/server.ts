@@ -1,5 +1,6 @@
-import express from 'express';
-import connectDB from './config/db';
+import express from "express";
+import connectDB from "./config/db";
+import router from "./router";
 
 const PORT = process.env.PORT || 3001;
 
@@ -8,9 +9,7 @@ const app = express();
 app.use(express.json());
 
 
-app.get('/', (req, res) => {
-    res.json({ message: 'API работает' });
-});
+app.use('/api', router)
 
 const startServer = async () => {
     try {
@@ -20,8 +19,9 @@ const startServer = async () => {
             console.log(`Server is running on port ${PORT}`);
         });
     } catch (error) {
-        console.error('Failed to start server:', error);
+        console.error("Failed to start server:", error);
         process.exit(1);
     }
 };
-startServer()
+
+startServer();
